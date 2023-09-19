@@ -13,59 +13,73 @@ public class TooManyShapes {
 
 	public static void main(String[] args) {
 		//1. Ask the user how many sides they want their shape to be
-		
+		String sides = JOptionPane.showInputDialog("How many sides do you want your shape to have");		
 		//2. Ask the user how many shapes they want
-		
+		String shape =  JOptionPane.showInputDialog("How many shapes do you want");
 		//3. Call canMakeShape() and save what is returned into a variable
-		
+		int numSides = Integer.parseInt(sides);
+		int numShapes = Integer.parseInt(shape);
+		boolean b =  canMakeShape(numSides);
 		//4. If the shape CAN be drawn
-		
-			//5. Call and save what is returned from calculateTurnAngle()
-		
-			//6. Use drawPolygons() to draw your shape
-		
-		//7. If the shape CANNOT be drawn 
+		if (b) {
 			
-			//8. Call notEnoughSides() and print out what is returned 
-		
-	}
+		//5. Call and save what is returned from calculateTurnAngle()
 	
+		int angle = calculateTurnAngle(numSides);
+		
+			
+	
+		//6. Use drawPolygons() to draw your shape
+		drawPolygons(numSides, numShapes, angle);
+	
+		//7. If the shape CANNOT be drawn 
+	}else {
+		
+	
+		//8. Call notEnoughSides() and print out what is returned 
+	
+	System.out.println(notEnoughSides());
+	}
+	}
+
 	static int calculateTurnAngle(int numSides) {
 		int angle = 360/numSides;
 		return angle;
 	}
-	
+
 	static void drawPolygons(int numSides, int numShapes, int degrees) {
 		rob.setSpeed(100);
 		rob.penDown();
 		int dist = 25;
 		Random rand = new Random();
-		
+
 		for(int i = 0; i < numShapes; i++) {
 			int x = rand.nextInt(600);
 			int y = rand.nextInt(600);
 			int angle = rand.nextInt(360);
 
-			rob.setX(x);
-			rob.setY(y);
+			rob.setX(600);
+			rob.setY(600);
+			//rob.setX(x);
+			//rob.setY(y);
 			rob.setAngle(angle);
 			rob.setRandomPenColor();
-			
+
 			for(int j = 0; j < numSides; j++) {
 				rob.move(dist);
 				rob.turn(degrees);
 			}
-	    }
+		}
 		rob.hide();
 	}
-	
+
 	static boolean canMakeShape(int numSides) {
 		if(numSides >= 3) {
 			return true;
 		}
 		return false;
 	}
-	
+
 	static String notEnoughSides() {
 		return "I'm sorry we cannot make a shape with that many sides\n"
 				+ "Please enter a number greater than 2";

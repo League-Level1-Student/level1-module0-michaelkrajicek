@@ -17,27 +17,30 @@ public class FinishLine {
 	
 	public static void main(String[] args) {
 		//1. Call the drawFinishLine() method
-		
+		drawFinishLine();
 		//2. Call the crazyMove() method to move the robot
-		
+		crazyMove();
 		//3. Call the getTotalDistance() and save what is returned into a variable
-		
+		int i = getTotalDistance();
 		//4. Call the hasCrossedFinishLine() method and save what is returned into a variable
-		
+		boolean b =  hasCrossedFinishLine();
 		//5. If the robot has crossed the finish line... 
 			
 			//6. Use a pop up to say the robot finished and how far it went
-		
+		if (b == true){
+			JOptionPane.showMessageDialog(null, "robot went " +i+ " pixels far");
 		
 		//7. Else use a pop up to say the robot did not finish and how far it went
-		
+	}else {
+		JOptionPane.showMessageDialog(null, "Robot did not finish and went " +i+ " pixels far.");
+	}
 	}
 	
 	static void crazyMove() {
 		rob.setX(400);
 		rob.setY(600);
 		
-		int numMoves = new Random().nextInt(41)+10;
+		int numMoves = new Random().nextInt(45)+10;
 		for (int i = 0; i < numMoves; i++ ) { 
 			rob.setAngle(0);
 			if(i%2==0) {
@@ -46,7 +49,7 @@ public class FinishLine {
 			else {
 				rob.turn(-45);
 			}
-			int dist = new Random().nextInt(31);
+			int dist = new Random().nextInt(33);
 			rob.move(dist);
 			totalDistance+=dist;
 		}
