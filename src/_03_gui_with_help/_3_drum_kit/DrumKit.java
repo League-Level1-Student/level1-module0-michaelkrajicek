@@ -1,5 +1,6 @@
 package _03_gui_with_help._3_drum_kit;
 
+import java.awt.GridLayout;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.net.URL;
@@ -14,110 +15,126 @@ import javax.swing.JPanel;
 import game_tools.Sound;
 
 public class DrumKit implements MouseListener {
-    static boolean canPlaySounds = true; // Set this to false if your computer cannot play sounds
-    JLabel drumLabel;
+	static boolean canPlaySounds = true; // Set this to false if your computer cannot play sounds
+	JLabel drumsnareLabel;
+	JLabel drumcymbalLabel;
 
-    public void run() {
-        //  Make a JFrame variable and initialize it using "new JFrame()"
-JFrame frame = new JFrame();
-        //  Make the frame visible and
-        // set its default close operation to JFrame.EXIT_ON_CLOSE
-frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        //  Set the title of the frame
-frame.setTitle("drums");
-        //  Make a JPanel variable and initialize it using "new JPanel().
-JPanel panel = new JPanel();
-        //  Add the panel to the frame. (The panel is invisible.)
-frame.add(panel);
-        //  Use the image of a drum provided ("snare.jpg") or
-        //  download an image of a drum from the Internet and drop it into the
-        //  Drum Kit recipe package.
-comps = createImage
-        //  Put the name of the drum image file in a String variable.
+	public void run() {
+		//  Make a JFrame variable and initialize it using "new JFrame()"
+		JFrame frame = new JFrame();
+		//  Make the frame visible and
+		frame.setVisible(true);
+		// set its default close operation to JFrame.EXIT_ON_CLOSE
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//  Set the title of the frame
+		frame.setTitle("drums");
+		//  Make a JPanel variable and initialize it using "new JPanel().
+		JPanel panel = new JPanel();
+		//  Add the panel to the frame. (The panel is invisible.)
+		frame.add(panel);
+		//  Use the image of a drum provided ("snare.jpg") or
+		//  download an image of a drum from the Internet and drop it into the
+		//  Drum Kit recipe package.
 
-        //  Edit the next line to use your String variable
-        // drumLabel = createLabelImage(drumImageString);
+		//  Put the name of the drum image file in a String variable.
+		String snare = "snare.jpg";
+		//  Edit the next line to use your String variable
+		// drumLabel = createLabelImage(drumImageString);
+		drumsnareLabel = createLabelImage(snare);
+		//  Add the label to the panel
+		panel.add(drumsnareLabel);
+		//  Call the pack() method on the frame.
+		frame.pack();
+		// Run your program. Do you see your drum image?
 
-        //  Add the label to the panel
+		// Add this MouseListener to drumLabel
+		drumsnareLabel.addMouseListener(this);
+		
+		// *** Write the code in the mouseClicked() method below
+panel.setLayout(new GridLayout());
+		//  Set the layout of the panel to "new GridLayout()"
 
-        //  Call the pack() method on the frame.
-        // Run your program. Do you see your drum image?
+		//  Add a cymbal image to make a Drum Kit (one has been provided).
+String cymbal = "cymbal.jpg";
+drumcymbalLabel=createLabelImage(cymbal);
+panel.add(drumcymbalLabel);
+frame.pack();
+drumcymbalLabel.addMouseListener(this);
+		//  You will need a different sound to go with this image.
+		//  Remember to add this MouseListener to it. Run the program.
 
-        // Add this MouseListener to drumLabel
+	}
 
-        // *** Write the code in the mouseClicked() method below
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// Print "mouse clicked" to the console. Run your program and watch
+		// the console to see when this is printed.
 
-        //  Set the layout of the panel to "new GridLayout()"
+		//JLabel labelClicked = (JLabel) e.getSource(); // This line gets the label
+		if(e.getSource()== drumsnareLabel) {
+		playSound("drum.wav");
+		}
+		if(e.getSource()== drumcymbalLabel) {
+			playSound("cymbal.wav");
+			}	
+		//Trap_Snare_1_(C)_z2u.wav
+		// that the mouse
+		// clicked on
 
-        //  Add a cymbal image to make a Drum Kit (one has been provided).
-        //  You will need a different sound to go with this image.
-        //  Remember to add this MouseListener to it. Run the program.
+		// You can use the drum sound provided ("drum.wav") or
+		// download another drum sound (.wav) and drop it into the Drum Kit package.
+		// You can find sounds on freesound.org, and to download from there, you must log in
+		// Ask your teacher for The League's login information.
 
-    }
+		//  If the user clicks on the drumImage...use the playSound method to play the drum sound.
+		//  Test to see if it works before moving on.
 
-    @Override
-    public void mouseClicked(MouseEvent e) {
-        // Print "mouse clicked" to the console. Run your program and watch
-        // the console to see when this is printed.
+	}
 
-        //JLabel labelClicked = (JLabel) e.getSource(); // This line gets the label
-                                                        // that the mouse
-                                                        // clicked on
-
-        // You can use the drum sound provided ("drum.wav") or
-        // download another drum sound (.wav) and drop it into the Drum Kit package.
-        // You can find sounds on freesound.org, and to download from there, you must log in
-        // Ask your teacher for The League's login information.
-
-        //  If the user clicks on the drumImage...use the playSound method to play the drum sound.
-        //  Test to see if it works before moving on.
-
-    }
-
-    private JLabel createLabelImage(String fileName) {
-        JLabel imageLabel = new JLabel();
-        URL imageURL = getClass().getResource(fileName);
-        if (imageURL == null) {
-            imageLabel.setText("Could not find image " + fileName);
-        } else {
-            Icon icon = new ImageIcon(imageURL);
-            imageLabel.setIcon(icon);
-        }
-        return imageLabel;
-    }
+	private JLabel createLabelImage(String fileName) {
+		JLabel imageLabel = new JLabel();
+		URL imageURL = getClass().getResource(fileName);
+		if (imageURL == null) {
+			imageLabel.setText("Could not find image " + fileName);
+		} else {
+			Icon icon = new ImageIcon(imageURL);
+			imageLabel.setIcon(icon);
+		}
+		return imageLabel;
+	}
 
 
-    public static synchronized void playSound(String fileName) {
-        if (canPlaySounds) {
-            Sound s = new Sound("_03_gui_with_help/_3_drum_kit/" + fileName);
-            s.play();
-        } else {
-            JOptionPane.showMessageDialog(null, "Cannot play "+fileName, "No Sound", JOptionPane.ERROR_MESSAGE);
-        }
-    }
+	public static synchronized void playSound(String fileName) {
+		if (canPlaySounds) {
+			Sound s = new Sound("_03_gui_with_help/_3_drum_kit/" + fileName);
+			s.play();
+		} else {
+			JOptionPane.showMessageDialog(null, "Cannot play "+fileName, "No Sound", JOptionPane.ERROR_MESSAGE);
+		}
+	}
 
-    @Override
-    public void mousePressed(MouseEvent e) {
-        // TODO Auto-generated method stub
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
 
-    }
+	}
 
-    @Override
-    public void mouseReleased(MouseEvent e) {
-        // TODO Auto-generated method stub
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
 
-    }
+	}
 
-    @Override
-    public void mouseEntered(MouseEvent e) {
-        // TODO Auto-generated method stub
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
 
-    }
+	}
 
-    @Override
-    public void mouseExited(MouseEvent e) {
-        // TODO Auto-generated method stub
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
 
-    }
+	}
 
 }
