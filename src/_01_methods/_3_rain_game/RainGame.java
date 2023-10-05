@@ -11,7 +11,7 @@ import processing.core.PImage;
  *    A bucket image, bucket.png, has been provided if you want to use it.
  *    bucket = loadImage("images/bucket.png");
  *    bucket.resize(100, 100);  // you can choose values other than 100, 100
- * 
+ *    
  * In the draw() method:
  * 2. Set a background color
  * 
@@ -42,6 +42,7 @@ import processing.core.PImage;
  *    text("Score: " + score, 20, 20);
  */
 public class RainGame extends PApplet {
+	
     static final int WIDTH = 600;
     static final int HEIGHT = 600;
 
@@ -49,8 +50,8 @@ public class RainGame extends PApplet {
     int bucketWidth = 50;
     int bucketHeight;
     PImage bucket;
-    int y;
-    int x;
+    int y = 0;
+    int x = 100;
 
     // Sets the size of your canvas
     @Override
@@ -61,11 +62,22 @@ public class RainGame extends PApplet {
     @Override
     public void setup() {
 
+    	bucket = loadImage("images/bucket.png");
+    	bucket.resize(100, 100);
+    	
     }
 
     @Override
     public void draw() {
 
+    	background(105,236,205);
+    	
+    	 fill(161, 198, 204);
+    	    stroke(161, 236, 205);
+    	    ellipse(x, y, 50, 50);
+    	y += 10;    
+    	    Random r = new Random();
+    	x = r;
     }
 
     static public void main(String[] args) {
