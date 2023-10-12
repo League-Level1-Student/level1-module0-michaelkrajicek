@@ -2,13 +2,19 @@ int WIDTH = 800;
 int HEIGHT = 600;
 int y = 300;
 int x = 100;
-int birdYVelocity = 35;
+int birdYVelocity = 15;
 int gravity = 10;
-int topPipeX = 300;
+int pipeX = 800;
+int upperPipeHeight = (int) random(100, 400);
+int pipeGap = 200;
+int lowerPipeHeight = 600 - (upperPipeHeight + pipeGap);
+int lowerY = (upperPipeHeight + pipeGap);
+
 
 PImage bird;
 PImage fbackground;
 PImage topPipe;
+PImage bottomPipe;
 
 void settings() {
   size(WIDTH, HEIGHT);
@@ -22,10 +28,21 @@ void setup() {
   fbackground.resize(WIDTH, HEIGHT);
   
   topPipe = loadImage("topPipe.png");
-  topPipe.resize(75,200);
+  topPipe.resize(75,upperPipeHeight);
+  
+  bottomPipe = loadImage("bottomPipe.png");
+  bottomPipe.resize(75, 600 - (upperPipeHeight + pipeGap));
+  
+  
 }
 
 void draw() {
+  
+    boolean result = intersectsPipes();
+  if (result == true){
+    exit();
+  }
+  
   //background
   background(fbackground);
   //bird
@@ -33,28 +50,49 @@ void draw() {
   
   // top pipe 
   //fill(red, green, blue);
-image(topPipe, topPipeX, 0);
-topPipeX -= 5;
+image(topPipe, pipeX, 0);
+image(bottomPipe, pipeX, lowerY);
+pipeX -= 5;
 
-if (topPipeX ==0){
- topPipeX = 800; 
- int upperPipeHeight = (int) random (100,400);
+
+if (pipeX == -75){
+  upperPipeHeight = (int) random(100, 400);
+  lowerY = (upperPipeHeight + pipeGap);
+  lowerPipeHeight = 600 - (upperPipeHeight + pipeGap);
+  bottomPipe.resize(75, lowerPipeHeight);
+  topPipe.resize(75,upperPipeHeight);
+ pipeX = 800; 
+ 
 }
 
   //Bird falling down
   y += gravity;
   
   
-  
-  
   if (mousePressed){
   
   y -= birdYVelocity;
- // birdYVelocity -= 35;
+ 
   }
   if (y>height){
-   y = 300;
-   //exit();
+   //y = 300;
+   exit();
     
   }
+  
+
+  
 }
+
+boolean intersectsPipes() { 
+ if (y + 25< upperPipeHeight && x + 25 > pipeX && x + 25 < (pipeX+75)){
+            return true; }
+        else if (y +25 >lowerY && x > pipeX && x + 25 < (pipeX+75)) {
+            return true; }
+        else { return false; }
+//if (true){exit();}
+}
+  
+  
+  //less than lower pipe height 
+  //greater than lower pipe height + pipe gap 
