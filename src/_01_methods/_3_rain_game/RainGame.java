@@ -76,8 +76,8 @@ public class RainGame extends PApplet {
     	    stroke(161, 236, 205);
     	    ellipse(x, y, 50, 50);
     	y += 10;    
-    	    Random r = new Random();
-    	x = r;
+    	    //Random r = new Random();
+    	//x = r;
     }
 
     static public void main(String[] args) {
