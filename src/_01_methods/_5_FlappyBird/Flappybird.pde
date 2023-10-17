@@ -2,13 +2,14 @@ int WIDTH = 800;
 int HEIGHT = 600;
 int y = 300;
 int x = 100;
-int birdYVelocity = 15;
+int birdYVelocity = 25;
 int gravity = 10;
 int pipeX = 800;
 int upperPipeHeight = (int) random(100, 400);
 int pipeGap = 200;
 int lowerPipeHeight = 600 - (upperPipeHeight + pipeGap);
 int lowerY = (upperPipeHeight + pipeGap);
+int text = 0;
 
 
 PImage bird;
@@ -22,7 +23,7 @@ void settings() {
 
 void setup() {
   bird = loadImage("bird.png");
-  bird.resize(50, 50);
+  bird.resize(400, 400);
   
   fbackground = loadImage("flappyBackground.jpg");
   fbackground.resize(WIDTH, HEIGHT);
@@ -40,6 +41,7 @@ void draw() {
   
     boolean result = intersectsPipes();
   if (result == true){
+    //text -= 1;
     exit();
   }
   
@@ -80,14 +82,16 @@ if (pipeX == -75){
     
   }
   
-
-  
+text(text, 400, 100);
+  if (pipeX == 0){
+   text += 1; 
+  }
 }
 
 boolean intersectsPipes() { 
- if (y + 25< upperPipeHeight && x + 25 > pipeX && x + 25 < (pipeX+75)){
+ if (y + 50< upperPipeHeight && x + 50 > pipeX && x + 50 < (pipeX+75)){
             return true; }
-        else if (y +25 >lowerY && x > pipeX && x + 25 < (pipeX+75)) {
+        else if (y +50 >lowerY && x + 50 > pipeX && x + 50 < (pipeX+75)) {
             return true; }
         else { return false; }
 //if (true){exit();}
