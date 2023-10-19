@@ -1,3 +1,241 @@
+int WIDTH = 600;
+   int HEIGHT = 600;
+
+    int score = 0;
+    int bucketWidth = 50;
+    int bucketHeight;
+    PImage bucket;
+    int y = 0;
+    int x = 100;
+
+    // Sets the size of your canvas
+   
+    public void settings() {
+        size(WIDTH, HEIGHT);
+    }
+
+    
+    public void setup() {
+
+      bucket = loadImage("bucket.png");
+      bucket.resize(100, 100);
+      
+    }
+
+   
+    public void draw() {
+
+      background(20,177,201);
+      
+      fill(128, 119, 91);
+      stroke(82,77,61);
+      
+      rect( mouseX, height - 100, 100, 100);
+    
+      
+      
+      
+       fill(161, 198, 204);
+          stroke(161, 236, 205);
+          ellipse(x, y, 50, 50);
+      y += 10;  
+      
+      if (y>height){
+          x = (int) random(width);
+          y = 0;
+          score -= 1;
+      }
+     
+          if (x> mouseX && x < mouseX+100 && y>height-100){
+            //int i = 0;
+           score += 1;
+           println (score);
+           x = (int) random(width);
+          y = 0;
+          }
+          
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+ 
+    
+    
+    
+
+    
+       
+    
+    
+    /*********************** DO NOT MODIFY THE CODE BELOW ********************/
+
+    void checkCatch(int x) {
+        if (x > mouseX && x < mouseX + bucketWidth) {
+            score++;
+        } else if (score > 0) {
+            score--;
+        }
+        println("Your score is now: " + score);
+    }
+
+
+
+/*******************************************************************************/
+
+
+    int WIDTH = 805;
+    int HEIGHT = 450;
+
+     int score = 0;
+     
+     
+     int y = 225;
+     int x = 600;
+     int xSpeed = -5;
+     float ySpeed = 1;
+     // Sets the size of your canvas
+    
+     public void settings() {
+         size(WIDTH, HEIGHT);
+     }
+
+     
+     public void setup() {
+
+       
+       
+     }
+
+    
+     public void draw() {
+
+       background(0,0,0);
+       
+       for (int i = 0; i < 60; i++){
+        
+       fill(250, 245, 245);
+       stroke(250,245,245);
+       
+       
+       rect(400, (i*15+5), 5, 5);
+       }
+       
+       //left player controlled wall, 50 pixels long
+         fill(250, 245, 245);
+       stroke(250,245,245);
+       
+       rect(10,mouseY, 5, 50);
+       
+       //bottom wall
+         fill(250, 245, 245);
+       stroke(250,245,245);
+       
+       rect(0, 445, 805, 5);
+       
+       //top wall
+       fill(250, 245, 245);
+       stroke(250,245,245);
+       
+       rect(0, 0, 805, 5);
+       
+       
+       //right side wall
+         fill(250, 245, 245);
+       stroke(250,245,245);
+       
+       rect(800, 0, 5, 450);
+       
+       //main ball
+         fill(250, 245, 245);
+       stroke(250,245,245);
+       rect(x, y, 5, 5);
+         x+=xSpeed;
+         y+=ySpeed;
+         
+         /*if (x<5){
+           xSpeed = -xSpeed;
+         }*/
+         
+         if (y>=mouseY && x==10 && y<=mouseY+50){
+           xSpeed = -xSpeed;
+           ySpeed = -random(-5,5);
+           score += 1;
+         }
+         
+         
+         if (x>800){
+           xSpeed = -xSpeed;
+           ySpeed = -random(-5,5);
+          
+         }
+         
+         if (y>445){
+           ySpeed = -ySpeed;
+         }
+         
+         if (y<5){
+           ySpeed = -ySpeed;
+         }
+       
+      
+      
+      
+           
+     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 package _01_methods._3_rain_game;
 
 import processing.core.PApplet;
